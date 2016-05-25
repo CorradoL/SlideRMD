@@ -3,29 +3,45 @@ title: "Slide Rmd"
 subtitle: "test and template"
 author: "Lanera Corrado\\thanks{Unit of Biostatistic, Epidemiology and Public Healt\\newline Department of Cardiac, Thoracic and Vascular Sciences (University of Padua)}"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
+header-includes:
+   - \usepackage{booktabs}
+   - \usepackage{subfig}
+   - \usepackage{multicol}
 output: 
   beamer_presentation: 
     fig_caption: yes
     keep_tex: yes
     theme: Padova
-bibliography: bibliography.bib
+classoption: [a4paper]
+bibliography:
+   - bibliography.bib
+   - pkg_bib.bib
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+# From standard RStudio template
+
 ## R Markdown
+<!-- This way you can comment the source code -->
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+This is an R Markdown presentation. Markdown is a simple formatting syntax 
+for authoring HTML, PDF, and MS Word documents. For more details on using 
+R Markdown see <http://rmarkdown.rstudio.com>.
+<!-- note: a texted link is made by [text](link) -->
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+When you click the **Knit** button a document will be generated that
+includes both content as well as the output of any embedded R code chunks
+within the document.
 
 ## Slide with Bullets
 
 - Bullet 1
 - Bullet 2
 - Bullet 3
+
 
 ## Slide with R Output
 
@@ -39,4 +55,134 @@ summary(cars)
 plot(pressure)
 ```
 
+# Something more
+
+## LaTeX
+
+Out of headers, you can use as \LaTeX{} as you need.
+
+> __But you do not have to mix markdown with \LaTeX!!.__
+
+You can create a footnote using markdown syntax `\^[footnote]` or \LaTeX{}
+syntax `\footnote{footnote}`,
+but remember to be syntax-consistent while nesting markup, i.e
+
+both the following are 0K
+
+    ^[A __bold__ text in a footnote.]
+    \footnote{A \textbf{bold} text in a footnote.}
+
+but both of the following return an error
+
+    ^[A \textbf{bold} text in a footnote]
+    \footnote{A *bold* text in a footnote}
+
+
+## Table, caption and cross references
+
+The using of standard \LaTeX{} can run in help to create (referenced) tables
+
+
+\begin{table}
+\centering
+\caption{my first table.}
+\label{tab:first}
+\begin{tabular}{lc}
+\toprule
+topic  & value\\
+\midrule
+first  & 1    \\
+second & 2    \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In a slide you can always provide references, e.g. to the Table&nbsp;\ref{tab:first}.
+
+<!-- &nbsp; is the "No Breaking SPace" HTML tag -->
+
+> __avoid references across different slides...__
+
+
+## Multicolumns and Tabular figures
+
+
+<!-- subfloat needs *subfig*a package-->
+
+\begin{multicols}{2}
+
+\begin{figure}
+\centering
+\subfloat[][\emph{figure 1.1 JPG}]
+    {\includegraphics[width = .45\linewidth]{Figure/padoval.jpg}} \quad
+\subfloat[][\emph{figure 1.2 EPS}]
+    {\includegraphics[width = .45\linewidth]{Figure/l1lasso.eps}} \\
+%
+\subfloat[][\emph{figure 2.1 PNG}]
+    {\includegraphics[width = .8\linewidth]{Figure/feed2_plot.png}}
+\caption{Three tabularized figures.}
+\label{fig:first}
+\end{figure}
+
+\vfill
+\columnbreak
+
+
+\vspace*{\fill} % this needs only for vertical centering
+\begin{figure}
+\centering
+\includegraphics[width = .95\linewidth]{Figure/boom.png}
+\caption{A simple, single, figure --- \url{http://xkcd.com/795/}}
+\label{fig: simple}
+\end{figure}
+\vspace*{\fill} % this needs only for vertical centering
+
+\end{multicols}
+
+## Reference an article or an R-package
+
+You can refer to an article using the markdown \@\<label\> (see @art1).
+
+Moreover you can ask to R (inside a chunk in this own markdown) to create a
+`.bib` file with the citations for the packages you need to cite, and citing
+them by the name of the package adding the prefix __R-__
+
+E.g. to cite the documentation of dplyr (see @R-dplyr) use \@R-dplyr, and
+add dplyr to the list of your *citable* package in a chunk including code
+like the following one
+
+
+    knitr::write_bib(
+        c('dplyr', 'stringr'),
+        file = 'pkg_bib.bib'
+    )
+
+
+## Thank you
+
+\begin{center}
+\Huge{Thank you}
+\end{center}
+
 ## References
+```{r pkg_bib, include = FALSE}
+# create a bib file for the R packages used in this document
+knitr::write_bib(
+    x    = c(
+        'dplyr', 'stringr'
+    ),
+    file = 'pkg_bib.bib'
+)
+```
+
+<!--
+The references are auto included at the very end of the document.
+So, on one hand you can write command that influence them (e.g. changing
+the font size), on the other hend you cannot insert supplementary matherials
+after the references.
+-->
+
+\scriptsize
+
+
+

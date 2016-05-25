@@ -4,7 +4,7 @@
 
 ## System specifications
 
-We run all teh code on a Windows 10 machine (we'll have tested them on MAC very soon).
+We run all the code on Windows 10 (we'll have tested them on MAC very soon).
 
 To setup your PC to be able to run all the present code you need __R__ 
 (ver 3.3.0+), __pandoc__ (to compile the Rmarkdown
@@ -16,7 +16,7 @@ the scripts itselves.
 
 ## Installing
 
-- Download the template at [http://www.math.unipd.it/~burattin/other/tema-latex-beamer-padova/](http://www.math.unipd.it/~burattin/other/tema-latex-beamer-padova/) provided by Andrea Burattin.
+- Download the template at <http://www.math.unipd.it/~burattin/other/tema-latex-beamer-padova/> provided by Andrea Burattin.
 
 - go to the one of the following folder responding on your system (or create if it not exists):
 
